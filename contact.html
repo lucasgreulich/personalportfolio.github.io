@@ -7,18 +7,18 @@
     <title>Lucas Greulich</title>
 </head>
 <body>
-    <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="contact.html">Contact</a>
+    <header class="navbar">
+        <a href="./index.html">Home</a>
+        <a href="./portfolio.html">Portfolio</a>
+        <a href="./contact.html">Contact</a>
         <label class="switch">
             <input type="checkbox" id="mode-toggle">
             <span class="slider"></span>
         </label>
-    </div>
+    </header>
 
-    <div class="container">
-        <img src="pictures\lucas.JPG" alt="Lucas Greulich">
+    <main class="container">
+        <img src="pictures\lucas-plane.JPG" alt="Lucas Greulich">
         <h1>Contact Lucas Greulich</h1>
         <p>You can reach me through the following methods:</p>
         <div class="contact-info">
@@ -26,31 +26,33 @@
             <p><a href="mailto:lucas.g.greulich@gmail.com">lucas.g.greulich@gmail.com</a></p>
         </div>
 
-    </div>
-</body>
-<footer class="footer">
-</footer>
-<script>
-  (function(){
-    const toggle = document.getElementById('mode-toggle');
-    function setMode(mode){
-      document.body.classList.remove('day','night');
-      document.body.classList.add(mode);
-      localStorage.setItem('mode', mode);
-      if(toggle) toggle.checked = mode === 'night';
-    }
-    if(toggle){
-      toggle.addEventListener('change', () => {
-        const newMode = toggle.checked ? 'night' : 'day';
-        setMode(newMode);
-      });
-    }
-    const stored = localStorage.getItem('mode');
-    if(stored === 'night' || stored === 'day'){
-      setMode(stored);
-    } else {
-      setMode('night');
-    }
-  })();
-</script>
+    </main>
+    <footer class="footer">
+    </footer>
+    <script>
+      (function(){
+        const toggle = document.getElementById('mode-toggle');
+        function setMode(mode){
+          document.body.classList.remove('day','night');
+          document.body.classList.add(mode);
+          localStorage.setItem('mode', mode);
+          if(toggle) toggle.checked = mode === 'night';
+        }
+        if(toggle){
+          toggle.addEventListener('change', () => {
+            const newMode = toggle.checked ? 'night' : 'day';
+            setMode(newMode);
+          });
+        }
+        document.querySelectorAll('.navbar a').forEach(a => {
+          a.addEventListener('click', e => console.log('nav click', a.getAttribute('href')));
+        });
+        const stored = localStorage.getItem('mode');
+        if(stored === 'night' || stored === 'day'){
+          setMode(stored);
+        } else {
+          setMode('night');
+        }
+      })();
+    </script>
 </html>
