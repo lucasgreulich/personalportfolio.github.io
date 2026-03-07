@@ -9,8 +9,12 @@
 <body>
     <div class="navbar">
         <a href="index.html">Home</a>
-        <a href="project.html">Projects</a>
+        <a href="portfolio.html">Portfolio</a>
         <a href="contact.html">Contact</a>
+        <label class="switch">
+            <input type="checkbox" id="mode-toggle">
+            <span class="slider"></span>
+        </label>
     </div>
 
     <div class="container">
@@ -26,4 +30,27 @@
 </body>
 <footer class="footer">
 </footer>
+<script>
+  (function(){
+    const toggle = document.getElementById('mode-toggle');
+    function setMode(mode){
+      document.body.classList.remove('day','night');
+      document.body.classList.add(mode);
+      localStorage.setItem('mode', mode);
+      if(toggle) toggle.checked = mode === 'night';
+    }
+    if(toggle){
+      toggle.addEventListener('change', () => {
+        const newMode = toggle.checked ? 'night' : 'day';
+        setMode(newMode);
+      });
+    }
+    const stored = localStorage.getItem('mode');
+    if(stored === 'night' || stored === 'day'){
+      setMode(stored);
+    } else {
+      setMode('night');
+    }
+  })();
+</script>
 </html>
