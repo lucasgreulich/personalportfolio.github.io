@@ -3,12 +3,24 @@
     box-sizing: border-box;
 }
 
+/* theme colors */
+:root {
+    /* vintage-inspired palette */
+    --color-primary: #BF8A49;   /* warm gold accent */
+    --color-secondary: #D9BFA0; /* muted olive brown */
+    --color-light: #A69677;     /* soft beige light */
+    --color-mid: #403B33;       /* deep charcoal midtone */
+    --color-dark: #0D0D0D;      /* near-black dark */
+    --color-bg: var(--color-dark);
+    --color-text: var(--color-light);
+}
+
 body, html {
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #2b1e1e; /* primary dark brown by default */
-    color: #f5f0e1; /* light ivory text */
+    background-color: var(--color-bg);
+    color: var(--color-text);
     line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -37,28 +49,31 @@ body {
 .container h1 {
     font-size: 2em;
     margin: 20px 0;
-    color: #ffffff; /* white for night readability */
+    color: var(--color-light); /* light for readability */
 }
 
 .container p {
     font-size: 1.2em;
-    color: #e0e0e0; /* light grey for readability */
+    color: var(--color-mid); /* mid grey for readability */
 }
 
 /* styling for button */
 
 .button {
     display: inline-block;
-    padding: 10px 20px;
+    /* replicate navbar link appearance */
+    padding: 8px 14px;
     font-size: 16px;
-    color: #fff;
-    background-color: #5c3a21; /* warm brown button */
-    border: 1px solid #5c3a21;
-    border-radius: 5px;
+    color: var(--color-dark); /* always dark text */
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 4px;
     text-align: center;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    /* opacity removed so text is always visible */
 }
+
 
 /* switch styling (now inside navbar, no absolute positioning) */
 .navbar {
@@ -70,24 +85,31 @@ body {
     align-items: center;
     height: 60px;
     padding: 0 2rem;
-    background-color: #0b3d2e;
+    background-color: var(--color-dark);
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-top: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
     z-index: 2000;
 }
 
 /* keep links visible always */
 .navbar a {
-    margin-right: 1.5rem;
-    color: inherit;
+    /* button-style appearance with hidden primary color until hover */
+    margin-right: 1rem;
+    padding: 8px 14px;
+    background-color: transparent;
+    color: var(--color-light);
     text-decoration: none;
     font-weight: 500;
-    line-height: 60px;
-    transition: color 0.2s ease;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar a:hover {
-    color: #cfcfcf;
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+    border-color: var(--color-primary);
 }
 
 /* switch repositioned and resized */
@@ -115,7 +137,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: var(--color-mid);
     transition: .4s;
     border-radius: 34px;
 }
@@ -133,7 +155,7 @@ body {
 }
 
 input:checked + .slider {
-    background-color: #0b3d2e;
+    background-color: var(--color-dark);
 }
 
 input:checked + .slider:before {
@@ -146,12 +168,16 @@ input:checked + .slider:before {
 }
 
 .button:hover {
-    background-color: #333333;
+    /* reveal primary color on hover like navbar buttons */
+    opacity: 1;
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+    border-color: var(--color-primary);
 }
 
 .project {
     margin-bottom: 40px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.05); /* keep subtle overlay */
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -185,66 +211,86 @@ input:checked + .slider:before {
     align-items: center;
     height: 60px;
     padding: 0 2rem;
-    background-color: #0b3d2e;
+    background-color: var(--color-dark);
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-top: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
     z-index: 2000;
 }
 
 .navbar a {
-    margin-right: 1.5rem;
-    color: inherit;
+    /* button-style appearance with hidden primary color until hover */
+    margin-right: 1rem;
+    padding: 8px 14px;
+    background-color: transparent;
+    color: var(--color-light);
     text-decoration: none;
     font-weight: 500;
-    line-height: 60px;
-    transition: color 0.2s ease;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar a:hover {
-    color: #cfcfcf;
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+    border-color: var(--color-primary);
 }
 
 /* previous margin rule removed since using absolute positioning */
+
+/* override link hover color with theme variable */
+.navbar a:hover { opacity: 1 !important; background-color: var(--color-primary) !important; color: var(--color-dark) !important; transform: scale(1.05) !important; }
+/* emphasise the secondary accent color in various highlights */
+.highlight, .navbar a.active, .button:focus {
+    color: var(--color-secondary);
+    outline-color: var(--color-secondary);
+}
+
+/* optional backgrounds using secondary as subtle accent */
+.bg-secondary {
+    background-color: rgba(217, 112, 74, 0.1); /* light tint of #D9704A */
+}
 /*footer*/
 .footer{
     width: 100%;
-    background-color: #1a3d2f; /* dark green footer */
-    color: #f5f0e1;
+    background-color: var(--color-secondary); /* updated to vintage secondary */
+    color: var(--color-light);
     text-align: center;
     padding: 0.75rem 0;
     position: relative;
+    border-top: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
 }
 
 /* day/night mode */
 /* night remains the primary dark palette */
 body.night {
-    background-color: #2b1e1e; /* rich brown for night */
-    color: #ffffff; /* pure white text for better contrast */
+    background-color: var(--color-dark);
+    color: var(--color-light);
 }
 body.day {
-    background-color: #f5f0e1; /* light ivory when switched */
-    color: #2b1e1e;
+    background-color: var(--color-light);
+    color: var(--color-dark);
 }
 
 body.night .navbar {
-    background-color: #0b3d2e; /* dark green primary */
+    background-color: var(--color-dark);
 }
 body.day .navbar {
-    background-color: #1a3d2f; /* lighter green for day */
-    color: #2b1e1e;
+    background-color: var(--color-secondary);
+    color: var(--color-dark);
 }
-/* links remain ivory regardless of mode */
+/* links remain light regardless of mode */
 body.day .navbar a,
 body.night .navbar a {
-    color: #f5f0e1;
+    color: var(--color-light);
 }
 
-/* make light/day mode text pure black */
-body.day .container h1 {
-    color: #000000;
-}
+/* day mode text darker for contrast */
+body.day .container h1,
 body.day .container p {
-    color: #000000;
+    color: var(--color-dark);
 }
 
 /* Media queries */
@@ -263,6 +309,12 @@ body.day .container p {
 
     .navbar a {
         padding: 10px 15px;
+        background-color: transparent;
+        color: var(--color-primary);
+        border: 2px solid var(--color-primary);
+        border-radius: 20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
     .button {
