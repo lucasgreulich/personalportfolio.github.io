@@ -9,20 +9,22 @@
 <body>
     <header class="navbar">
         <a href="./index.html">Home</a>
-        <a href="./portfolio.html">Portfolio</a>
+        <a href="./about.html">About Me</a>
         <a href="./contact.html">Contact</a>
-        <label class="switch">
-            <input type="checkbox" id="mode-toggle">
-            <span class="slider"></span>
-        </label>
     </header>
     
     <main class="container">
-        <img src="pictures/lucas-plane.JPG" alt="Lucas Greulich">
         <h1>Welcome to My Photography Portfolio</h1>
         <p>Hi, I'm Lucas — a photographer capturing stories through light, motion, and mood.</p>
-        <p>Explore my latest shoots and collections in the <a href="portfolio.html">portfolio</a>.</p>
-        <p>New work is added regularly, so check back soon for updates.</p>
+        <p>Explore my latest shoots and collections below.</p>
+        
+        <section class="gallery-grid">
+            <a href="pictures/lucas-plane.JPG" target="_blank" rel="noopener"><img src="pictures/lucas-plane.JPG" alt="Photography"></a>
+            <a href="pictures/lucas.JPG" target="_blank" rel="noopener"><img src="pictures/lucas.JPG" alt="Photography"></a>
+            <a href="pictures/dasmotos.png" target="_blank" rel="noopener"><img src="pictures/dasmotos.png" alt="Photography"></a>
+            <a href="pictures/randomess.png" target="_blank" rel="noopener"><img src="pictures/randomess.png" alt="Photography"></a>
+            <a href="pictures/Teacoazy.png" target="_blank" rel="noopener"><img src="pictures/Teacoazy.png" alt="Photography"></a>
+        </section>
     </main>
     <footer class="footer">
     </footer>
@@ -49,7 +51,7 @@
         if(stored === 'night' || stored === 'day'){
           setMode(stored);
         } else {
-          setMode('night');
+          setMode('day'); // Default to day mode for white background
         }
       })();
     </script>

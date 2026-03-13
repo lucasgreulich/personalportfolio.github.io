@@ -9,12 +9,8 @@
 <body>
     <header class="navbar">
         <a href="./index.html">Home</a>
-        <a href="./portfolio.html">Portfolio</a>
+        <a href="./about.html">About Me</a>
         <a href="./contact.html">Contact</a>
-        <label class="switch">
-            <input type="checkbox" id="mode-toggle">
-            <span class="slider"></span>
-        </label>
     </header>
 
     <main class="container">
@@ -51,7 +47,7 @@
         if(stored === 'night' || stored === 'day'){
           setMode(stored);
         } else {
-          setMode('night');
+          setMode('day'); // Default to day mode
         }
       })();
     </script>
