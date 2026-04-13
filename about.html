@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <title>Lucas Greulich - About Me</title>
+    <title>Lucas Greulich - Context</title>
 </head>
 <body>
     <header class="navbar">
@@ -12,14 +12,67 @@
         <div class="nav-title">Lucas Greulich</div>
         <div class="nav-links">
             <a href="./index.html">Home</a>
-            <a href="./about.html">About Me</a>
+            <a href="./about.html">Context</a>
             <a href="./contact.html">Contact</a>
         </div>
     </header>
 
-    <main class="container">
-        <h1>About Me</h1>
-        <p>Not on instagram</p>
-        <p>More to come!</p>
+    <main class="context-container">
+        <h1>Context</h1>
+        
+        <div class="context-box">
+            <div class="image-carousel">
+                <div class="carousel-container">
+                    <img src="pictures/above the clouds.jpg" alt="Context image" class="carousel-image active">
+                    <img src="pictures/DSC_9000.jpg" alt="Context image" class="carousel-image">
+                    <img src="pictures/wing and cloud.jpg" alt="Context image" class="carousel-image">
+                </div>
+                <button class="carousel-btn prev" onclick="prevSlide(this)">❮</button>
+                <button class="carousel-btn next" onclick="nextSlide(this)">❯</button>
+            </div>
+            <div class="writeup">
+                <h2>Your Context Title Here</h2>
+                <p>Add your write-up about this context or experience here. This section can contain any information you'd like to share.</p>
+            </div>
+        </div>
+
+        <div class="context-box">
+            <div class="image-carousel">
+                <div class="carousel-container">
+                    <img src="pictures/DSC_8943.jpg" alt="Context image" class="carousel-image active">
+                    <img src="pictures/Film sunset.jpg" alt="Context image" class="carousel-image">
+                    <img src="pictures/Ship in oregon.jpg" alt="Context image" class="carousel-image">
+                </div>
+                <button class="carousel-btn prev" onclick="prevSlide(this)">❮</button>
+                <button class="carousel-btn next" onclick="nextSlide(this)">❯</button>
+            </div>
+            <div class="writeup">
+                <h2>Another Context Title</h2>
+                <p>Add your write-up about this context or experience here. This section can contain any information you'd like to share.</p>
+            </div>
+        </div>
+
     </main>
+
+    <script>
+        function nextSlide(button) {
+            const carousel = button.closest('.image-carousel');
+            const images = carousel.querySelectorAll('.carousel-image');
+            const activeIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+            
+            images[activeIndex].classList.remove('active');
+            const nextIndex = (activeIndex + 1) % images.length;
+            images[nextIndex].classList.add('active');
+        }
+
+        function prevSlide(button) {
+            const carousel = button.closest('.image-carousel');
+            const images = carousel.querySelectorAll('.carousel-image');
+            const activeIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+            
+            images[activeIndex].classList.remove('active');
+            const prevIndex = (activeIndex - 1 + images.length) % images.length;
+            images[prevIndex].classList.add('active');
+        }
+    </script>
 </html>
