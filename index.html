@@ -55,6 +55,7 @@
           try {
             const response = await fetch('images.json');
             const images = await response.json();
+            images.reverse(); // Display most recent (last added) first
             const gallery = document.getElementById('galleryGrid');
             
             if(images.length === 0) {
