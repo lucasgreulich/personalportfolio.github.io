@@ -18,14 +18,9 @@
     </header>
     
     <main class="container">
-        <section class="gallery-grid">
-            <a href="pictures\above the clouds.jpg" target="_blank" rel="noopener"><img src="pictures\above the clouds.jpg" alt="Photography"></a>
-            <a href="pictures\DSC_9000.jpg" target="_blank" rel="noopener"><img src="pictures\DSC_9000.jpg" alt="Photography"></a>
-            <a href="pictures\wing and cloud.jpg" target="_blank" rel="noopener"><img src="pictures\wing and cloud.jpg" alt="Photography"></a>
-            <a href="pictures\DSC_8943.jpg" target="_blank" rel="noopener"><img src="pictures\DSC_8943.jpg" alt="Photography"></a>
-            <a href="pictures\Film sunset.jpg" target="_blank" rel="noopener"><img src="pictures\Film sunset.jpg" alt="Photography"></a>
-            <a href="pictures\Ship in oregon.jpg" target="_blank" rel="noopener"><img src="pictures\Ship in oregon.jpg" alt="Photography"></a>
-          </section>
+        <section class="gallery-grid" id="galleryGrid">
+            <!-- Images will be loaded automatically -->
+        </section>
     </main>
     <footer class="footer">
     </footer>
@@ -53,6 +48,62 @@
           setMode(stored);
         } else {
           setMode('day'); // Default to day mode for white background
+        }
+
+        // Load gallery images automatically
+        async function loadGalleryImages() {
+          try {
+            const response = await fetch('images.json');
+            const images = await response.json();
+            const gallery = document.getElementById('galleryGrid');
+            
+            if(images.length === 0) {
+              gallery.innerHTML = '<p style="text-align: center; grid-column: 1/-1;">No images found</p>';
+              return;
+            }
+            
+            images.forEach(imageName => {
+              const imagePath = 'pictures/' + imageName;
+              const link = document.createElement('a');
+              link.href = imagePath;
+              link.target = '_blank';
+              link.rel = 'noopener';
+              
+              const img = document.createElement('img');
+              img.src = imagePath;
+              img.alt = 'Photography';
+              
+              link.appendChild(img);
+              gallery.appendChild(link);
+            });
+          } catch(error) {
+            console.error('Error loading gallery images:', error);
+            document.getElementById('galleryGrid').innerHTML = '<p style="text-align: center; grid-column: 1/-1;">Error loading images</p>';
+          }
+        }
+
+        // Load images when DOM is ready
+        loadGalleryImages();
+
+        // Show success message if redirected from contact form
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('success') === 'true') {
+          // Create success notification
+          const notification = document.createElement('div');
+          notification.className = 'form-status success';
+          notification.textContent = 'Message sent successfully! Thank you for reaching out.';
+          notification.style.cssText = 'position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 3000; max-width: 90%; width: 400px;';
+          document.body.appendChild(notification);
+          
+          // Auto-hide after 5 seconds
+          setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+          }, 5000);
+          
+          // Clean up URL
+          window.history.replaceState({}, document.title, window.location.pathname);
         }
       })();
     </script>

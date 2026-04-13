@@ -20,7 +20,7 @@
     <main class="container">
         <div class="contact-form-section">
             <h2>Send a Message</h2>
-            <form id="contactForm" class="contact-form">
+            <form id="contactForm" class="contact-form" action="https://formsubmit.co/lucas.g.greulich@gmail.com" method="POST">
                 <div class="form-group">
                     <label for="name">Name *</label>
                     <input type="text" id="name" name="name" required>
@@ -44,6 +44,9 @@
                     <textarea id="message" name="message" rows="6" required></textarea>
                     <span class="error-message" id="messageError"></span>
                 </div>
+
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://personalportfolio.github.io/index.html?success=true">
 
                 <button type="submit" class="submit-btn">Send Message</button>
                 <div class="form-status" id="formStatus"></div>
@@ -82,9 +85,7 @@
       // Contact form handling
       const form = document.getElementById('contactForm');
       if(form) {
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          
+        form.addEventListener('submit', (e) => {
           // Clear previous errors
           document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
           document.getElementById('formStatus').textContent = '';
@@ -120,25 +121,8 @@
             isValid = false;
           }
           
-          if(!isValid) return;
-          
-          // Try to submit (requires contact-form.php)
-          try {
-            const response = await fetch('contact-form.php', {
-              method: 'POST',
-              body: formData
-            });
-            
-            if(response.ok) {
-              document.getElementById('formStatus').textContent = 'Message sent successfully!';
-              document.getElementById('formStatus').className = 'form-status success';
-              form.reset();
-            } else {
-              throw new Error('Server returned an error');
-            }
-          } catch(error) {
-            document.getElementById('formStatus').textContent = 'Error sending message. Please try emailing directly: lucas.g.greulich@gmail.com';
-            document.getElementById('formStatus').className = 'form-status error';
+          if(!isValid) {
+            e.preventDefault();
           }
         });
       }
