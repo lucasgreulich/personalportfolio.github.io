@@ -7,19 +7,119 @@
     <title>Lucas Greulich</title>
 </head>
 <body>
-    <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="project.html">Projects</a>
-        <a href="contact.html">Contact</a>
-    </div>
+    <header class="navbar">
+        <div class="nav-spacer"></div>
+        <div class="nav-title">Lucas Greulich</div>
+        <div class="nav-links">
+            <a href="./index.html">Home</a>
+            <a href="./about.html">Context</a>
+            <a href="./contact.html">Contact</a>
+        </div>
+    </header>
     
-    <div class="container">
-        <img src="pictures\lucas.JPG" alt="Lucas Greulich">
-        <h1>Welcome to Lucas Greulich's Site</h1>
-        <p>Discover more about Lucas and his work.</p>
-        <p>More on its way soon ! </p>
-    </div>
-</body>
-<footer class="footer">
-</footer>
+    <main class="container">
+        <section class="gallery-grid" id="galleryGrid">
+            <!-- Images will be loaded automatically -->
+        </section>
+    </main>
+    <footer class="footer">
+    </footer>
+    <script>
+      (function(){
+        const toggle = document.getElementById('mode-toggle');
+        function setMode(mode){
+          document.body.classList.remove('day','night');
+          document.body.classList.add(mode);
+          localStorage.setItem('mode', mode);
+          if(toggle) toggle.checked = mode === 'night';
+        }
+        if(toggle){
+          toggle.addEventListener('change', () => {
+            const newMode = toggle.checked ? 'night' : 'day';
+            setMode(newMode);
+          });
+        }
+        /* debug: log nav clicks */
+        document.querySelectorAll('.navbar a').forEach(a => {
+          a.addEventListener('click', e => console.log('nav click', a.getAttribute('href')));
+        });
+        const stored = localStorage.getItem('mode');
+        if(stored === 'night' || stored === 'day'){
+          setMode(stored);
+        } else {
+          setMode('day'); // Default to day mode for white background
+        }
+
+        // Load gallery images automatically
+        function loadGalleryImages() {
+          try {
+            const images = [
+              "above the clouds.jpg",
+              "wing and cloud.jpg",
+              "DSC_8943.jpg",
+              "Film sunset.jpg",
+              "Ship in oregon.jpg",
+              "Beautiful light.jpg",
+              "Harbor.jpg",
+              "Spike At Heritage.jpg",
+              "Spike on beach.jpg",
+              "Train Bridge Norish.jpg",
+              "Trees grow.jpg",
+              "Hummer.jpg",
+              "Butter.jpg",
+              "Errock.jpg"
+            ];
+            images.reverse(); // Display most recent (last added) first
+            const gallery = document.getElementById('galleryGrid');
+            
+            if(images.length === 0) {
+              gallery.innerHTML = '<p style="text-align: center; grid-column: 1/-1;">No images found</p>';
+              return;
+            }
+            
+            images.forEach(imageName => {
+              const imagePath = 'pictures/' + imageName;
+              const link = document.createElement('a');
+              link.href = imagePath;
+              link.target = '_blank';
+              link.rel = 'noopener';
+              
+              const img = document.createElement('img');
+              img.src = imagePath;
+              img.alt = 'Photography';
+              
+              link.appendChild(img);
+              gallery.appendChild(link);
+            });
+          } catch(error) {
+            console.error('Error loading gallery images:', error);
+            document.getElementById('galleryGrid').innerHTML = '<p style="text-align: center; grid-column: 1/-1;">Error loading images</p>';
+          }
+        }
+
+        // Load images when DOM is ready
+        loadGalleryImages();
+
+        // Show success message if redirected from contact form
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('success') === 'true') {
+          // Create success notification
+          const notification = document.createElement('div');
+          notification.className = 'form-status success';
+          notification.textContent = 'Message sent successfully! Thank you for reaching out.';
+          notification.style.cssText = 'position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 3000; max-width: 90%; width: 400px;';
+          document.body.appendChild(notification);
+          
+          // Auto-hide after 5 seconds
+          setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+          }, 5000);
+          
+          // Clean up URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      })();
+    </script>
 </html>

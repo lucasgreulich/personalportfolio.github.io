@@ -7,41 +7,50 @@
     <title>Lucas Greulich</title>
 </head>
 <body>
-    <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="project.html">Projects</a>
-        <a href="contact.html">Contact</a>
-    </div>
+    <header class="navbar">
+        <a href="./index.html">Home</a>
+        <a href="./portfolio.html">Portfolio</a>
+        <a href="./contact.html">Contact</a>
+        <label class="switch">
+            <input type="checkbox" id="mode-toggle">
+            <span class="slider"></span>
+        </label>
+    </header>
 
-    <div class="container">
-        
-        <img src="pictures\lucas.JPG" alt="Lucas Greulich">
+    <main class="container">
         <h1>Projects page</h1>
-        <p>Under construction !!!!</p>
+        <p>We've moved! The portfolio page now contains all of the latest work.</p>
+        <p>Please visit the <a href="portfolio.html">Portfolio</a> page.</p>
+    </main>
 
-        <!--
-        <div class="project">
-            <img src="project1.jpg" alt="Project 1">
-            <h1>Project Title 1</h1>
-            <p>Project description goes here. It can be a brief summary of what the project is about.</p>
-            <a href="https://example.com" class="button">View Project</a>
-        </div>
+    <footer class="footer">
+    </footer>
 
-        <div class="project">
-            <img src="project2.jpg" alt="Project 2">
-            <h1>Project Title 2</h1>
-            <p>Project description goes here. It can be a brief summary of what the project is about.</p>
-            <a href="https://example.com" class="button">View Project</a>
-        </div>
--->
-        <!-- Add more projects as needed -->
-
-    </div>
-
-    
-</body>
-<footer class="footer">
-</footer>
-
+    <script>
+      (function(){
+        const toggle = document.getElementById('mode-toggle');
+        function setMode(mode){
+          document.body.classList.remove('day','night');
+          document.body.classList.add(mode);
+          localStorage.setItem('mode', mode);
+          if(toggle) toggle.checked = mode === 'night';
+        }
+        if(toggle){
+          toggle.addEventListener('change', () => {
+            const newMode = toggle.checked ? 'night' : 'day';
+            setMode(newMode);
+          });
+        }
+        document.querySelectorAll('.navbar a').forEach(a => {
+          a.addEventListener('click', e => console.log('nav click', a.getAttribute('href')));
+        });
+        const stored = localStorage.getItem('mode');
+        if(stored === 'night' || stored === 'day'){
+          setMode(stored);
+        } else {
+          setMode('night');
+        }
+      })();
+    </script>
 
 </html>

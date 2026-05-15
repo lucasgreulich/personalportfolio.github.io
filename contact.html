@@ -7,23 +7,124 @@
     <title>Lucas Greulich</title>
 </head>
 <body>
-    <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="project.html">Projects</a>
-        <a href="contact.html">Contact</a>
-    </div>
+    <header class="navbar">
+        <div class="nav-spacer"></div>
+        <div class="nav-title">Lucas Greulich</div>
+        <div class="nav-links">
+            <a href="./index.html">Home</a>
+            <a href="./about.html">Context</a>
+            <a href="./contact.html">Contact</a>
+        </div>
+    </header>
 
-    <div class="container">
-        <img src="pictures\lucas.JPG" alt="Lucas Greulich">
-        <h1>Contact Lucas Greulich</h1>
-        <p>You can reach me through the following methods:</p>
-        <div class="contact-info">
-            <h2>Email</h2>
-            <p><a href="mailto:lucas.g.greulich@gmail.com">lucas.g.greulich@gmail.com</a></p>
+    <main class="container">
+        <div class="contact-form-section">
+            <h2>Send a Message</h2>
+            <form id="contactForm" class="contact-form" action="https://formsubmit.co/lucas.g.greulich@gmail.com" method="POST">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                    <span class="error-message" id="nameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <input type="text" id="subject" name="subject" required>
+                    <span class="error-message" id="subjectError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                    <span class="error-message" id="messageError"></span>
+                </div>
+
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://personalportfolio.github.io/index.html?success=true">
+
+                <button type="submit" class="submit-btn">Send Message</button>
+                <div class="form-status" id="formStatus"></div>
+            </form>
         </div>
 
-    </div>
-</body>
-<footer class="footer">
-</footer>
+    </main>
+    <footer class="footer">
+    </footer>
+    <script>
+      (function(){
+        const toggle = document.getElementById('mode-toggle');
+        function setMode(mode){
+          document.body.classList.remove('day','night');
+          document.body.classList.add(mode);
+          localStorage.setItem('mode', mode);
+          if(toggle) toggle.checked = mode === 'night';
+        }
+        if(toggle){
+          toggle.addEventListener('change', () => {
+            const newMode = toggle.checked ? 'night' : 'day';
+            setMode(newMode);
+          });
+        }
+        document.querySelectorAll('.navbar a').forEach(a => {
+          a.addEventListener('click', e => console.log('nav click', a.getAttribute('href')));
+        });
+        const stored = localStorage.getItem('mode');
+        if(stored === 'night' || stored === 'day'){
+          setMode(stored);
+        } else {
+          setMode('day'); // Default to day mode
+        }
+      })();
+
+      // Contact form handling
+      const form = document.getElementById('contactForm');
+      if(form) {
+        form.addEventListener('submit', (e) => {
+          // Clear previous errors
+          document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+          document.getElementById('formStatus').textContent = '';
+          document.getElementById('formStatus').className = 'form-status';
+
+          // Get form data
+          const formData = new FormData(form);
+          
+          // Basic validation
+          let isValid = true;
+          
+          if(!formData.get('name').trim()) {
+            document.getElementById('nameError').textContent = 'Name is required';
+            isValid = false;
+          }
+          
+          const email = formData.get('email').trim();
+          if(!email) {
+            document.getElementById('emailError').textContent = 'Email is required';
+            isValid = false;
+          } else if(!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+            document.getElementById('emailError').textContent = 'Please enter a valid email';
+            isValid = false;
+          }
+          
+          if(!formData.get('subject').trim()) {
+            document.getElementById('subjectError').textContent = 'Subject is required';
+            isValid = false;
+          }
+          
+          if(!formData.get('message').trim()) {
+            document.getElementById('messageError').textContent = 'Message is required';
+            isValid = false;
+          }
+          
+          if(!isValid) {
+            e.preventDefault();
+          }
+        });
+      }
+    </script>
 </html>
