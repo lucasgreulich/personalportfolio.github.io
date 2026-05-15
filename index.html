@@ -51,10 +51,24 @@
         }
 
         // Load gallery images automatically
-        async function loadGalleryImages() {
+        function loadGalleryImages() {
           try {
-            const response = await fetch('images.json');
-            const images = await response.json();
+            const images = [
+              "above the clouds.jpg",
+              "wing and cloud.jpg",
+              "DSC_8943.jpg",
+              "Film sunset.jpg",
+              "Ship in oregon.jpg",
+              "Beautiful light.jpg",
+              "Harbor.jpg",
+              "Spike At Heritage.jpg",
+              "Spike on beach.jpg",
+              "Train Bridge Norish.jpg",
+              "Trees grow.jpg",
+              "Hummer.jpg",
+              "Butter.jpg",
+              "Errock.jpg"
+            ];
             images.reverse(); // Display most recent (last added) first
             const gallery = document.getElementById('galleryGrid');
             
