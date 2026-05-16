@@ -30,7 +30,8 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1200px;
+    width: 100%;
     margin: 0 auto 2rem;
     padding: 2rem 1rem;
     text-align: center;
@@ -100,12 +101,16 @@ body {
     font-size: 24px;
     font-weight: bold;
     color: var(--color-black);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .nav-links {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    white-space: nowrap;
 }
 
 .nav-links a {
@@ -119,6 +124,37 @@ body {
     border: 2px solid transparent;
     border-radius: 4px;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+@media (max-width: 780px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding: 1rem;
+    }
+
+    body {
+        padding-top: 120px;
+    }
+
+    .nav-links {
+        flex: unset;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+    }
+
+    .nav-links a {
+        margin: 0 0.5rem 0.5rem;
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .nav-title {
+        font-size: 18px;
+    }
 }
 
 .nav-links a:hover {
@@ -165,7 +201,7 @@ body {
 /* grid layout for galleries */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
     text-align: left;
@@ -173,14 +209,15 @@ body {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 0.75rem;
     margin: 1rem 0;
 }
 
 .gallery-grid img {
     width: 100%;
-    height: 250px;
+    height: auto;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: 10px;
     transition: transform 0.3s ease;
@@ -190,15 +227,16 @@ body {
     transform: scale(1.02);
 }
 
-/* Large screens - larger images */
+/* Large screens - smaller images so 4 can fit in a row */
 @media (min-width: 1200px) {
     .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
     }
 
     .gallery-grid img {
-        height: 350px;
+        height: auto;
+        aspect-ratio: 4 / 3;
     }
 
     .context-box {
